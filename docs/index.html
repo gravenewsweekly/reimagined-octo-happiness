@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | SeeBlog</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <h1>Welcome to SeeBlog</h1>
+    <p id="welcomeMessage"></p>
+    <a href="profile.html">Edit Profile</a> | <a href="login.html">Logout</a>
+
+    <script type="module">
+        import { auth } from "./scripts/firebase-config.js";
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                document.getElementById("welcomeMessage").innerText = `Welcome, ${user.displayName}!`;
+            } else {
+                window.location.href = "login.html";
+            }
+        });
+    </script>
+</body>
+</html>
